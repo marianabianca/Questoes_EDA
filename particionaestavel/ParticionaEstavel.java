@@ -41,6 +41,8 @@ class ParticionaEstavel {
 			numeros[i+1] = aux;
 		}
 		
+		juntaIguais(numeros, pivot, bordaMenores+1);
+		
 	}
 
 	private static void ordena(int[] numeros, int posDesejada, int posAtual) {
@@ -48,6 +50,15 @@ class ParticionaEstavel {
 			int aux = numeros[i];
 			numeros[i] = numeros[i-1];
 			numeros[i-1] = aux;
+		}
+	}
+	
+	private static void juntaIguais(int[] vetor, int numero, int borda) {
+		for (int i = borda; i < vetor.length; i++) {
+			if (vetor[i] == numero) {
+				ordena(vetor, borda, i);
+				borda++;
+			}
 		}
 	}
 
