@@ -1,10 +1,10 @@
-package tsteda.insereprimeiro;
+package tsteda.particionaestavel;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-class InserePrimeiro {
-	
+class ParticionaEstavel {
+
 	public static void main(String[] args) {
 		Scanner rdr = new Scanner(System.in);
 		
@@ -12,7 +12,7 @@ class InserePrimeiro {
 		if (! (entrada.length() == 0)) {
 			String[] saida = entrada.split(" ");
 			int[] numeros = criaArrayDeInteiros(saida); 
-			ordenaPrimeiro(numeros);
+			particiona(numeros);
 			System.out.println(Arrays.toString(numeros));
 		} else {
 			int[] saida = new int[0]; 
@@ -23,21 +23,34 @@ class InserePrimeiro {
 		rdr.close();
 	}
 	
-	static void ordenaPrimeiro(int[] vetor) {
+	private static void particiona(int[] numeros) {
+		int pivot = numeros[0];
+		int bordaMenores = 0;
 		
-		int i = 0;
-		while ((vetor.length > 1) && (i < vetor.length-1)) {
-			if (!(vetor[i] > vetor[i+1])) {
-				break;
+		for (int i = 0; i < numeros.length; i++) {
+			if (pivot > numeros[i]) {
+				bordaMenores++;
+				ordena(numeros, bordaMenores, i);
 			}
-			int aux = vetor[i];
-			vetor[i] = vetor[i+1];
-			vetor[i+1] = aux;
-			i++;
+		}
+		
+		/* Coloca o pivot em sua posicao */
+		for (int i = 0; i < bordaMenores; i++) {
+			int aux = numeros[i];
+			numeros[i] = numeros[i+1];
+			numeros[i+1] = aux;
 		}
 		
 	}
-	
+
+	private static void ordena(int[] numeros, int posDesejada, int posAtual) {
+		for (int i = posAtual; posDesejada < i; i--) {
+			int aux = numeros[i];
+			numeros[i] = numeros[i-1];
+			numeros[i-1] = aux;
+		}
+	}
+
 	static int[] criaArrayDeInteiros(String[] frase) {
 		int[] retorno = new int[frase.length]; 
 		

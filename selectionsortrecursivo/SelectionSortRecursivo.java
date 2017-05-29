@@ -1,9 +1,9 @@
-package tsteda.insereprimeiro;
+package tsteda.selectionsortrecursivo;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-class InserePrimeiro {
+class SelectionSortRecursivo {
 	
 	public static void main(String[] args) {
 		Scanner rdr = new Scanner(System.in);
@@ -12,8 +12,7 @@ class InserePrimeiro {
 		if (! (entrada.length() == 0)) {
 			String[] saida = entrada.split(" ");
 			int[] numeros = criaArrayDeInteiros(saida); 
-			ordenaPrimeiro(numeros);
-			System.out.println(Arrays.toString(numeros));
+			sort(numeros, 0);
 		} else {
 			int[] saida = new int[0]; 
 			System.out.println(Arrays.toString(saida));
@@ -23,21 +22,22 @@ class InserePrimeiro {
 		rdr.close();
 	}
 	
-	static void ordenaPrimeiro(int[] vetor) {
-		
-		int i = 0;
-		while ((vetor.length > 1) && (i < vetor.length-1)) {
-			if (!(vetor[i] > vetor[i+1])) {
-				break;
+	private static void sort(int[] numeros, int indiceInicial) {
+		if (indiceInicial < numeros.length-1) {
+			int menor = indiceInicial;
+			for (int i = menor+1; i < numeros.length; i++) {
+				if (numeros[menor] > numeros[i]) {
+					menor = i;
+				}
 			}
-			int aux = vetor[i];
-			vetor[i] = vetor[i+1];
-			vetor[i+1] = aux;
-			i++;
+			int aux = numeros[menor];
+			numeros[menor] = numeros[indiceInicial];
+			numeros[indiceInicial] = aux;
+			System.out.println(Arrays.toString(numeros));
+			sort(numeros, indiceInicial+1);
 		}
-		
 	}
-	
+
 	static int[] criaArrayDeInteiros(String[] frase) {
 		int[] retorno = new int[frase.length]; 
 		
@@ -47,5 +47,6 @@ class InserePrimeiro {
 		
 		return retorno;
 	}
+	
 	
 }
