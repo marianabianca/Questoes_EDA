@@ -8,17 +8,10 @@ class ParticionaEstavel {
 	public static void main(String[] args) {
 		Scanner rdr = new Scanner(System.in);
 		
-		String entrada = rdr.nextLine();
-		if (! (entrada.length() == 0)) {
-			String[] saida = entrada.split(" ");
-			int[] numeros = criaArrayDeInteiros(saida); 
-			particiona(numeros);
-			System.out.println(Arrays.toString(numeros));
-		} else {
-			int[] saida = new int[0]; 
-			System.out.println(Arrays.toString(saida));
-		}
-		
+		String[] entrada = rdr.nextLine().split(" ");
+		int[] numeros = criaArrayDeInteiros(entrada); 
+		particiona(numeros);
+		System.out.println(Arrays.toString(numeros));
 		
 		rdr.close();
 	}
