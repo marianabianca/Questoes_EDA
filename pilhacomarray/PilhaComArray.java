@@ -9,7 +9,7 @@ class PilhaComArray {
 	private static final String CHEIO = "full";
 
 	public PilhaComArray(int tamanho) {
-		this.contador = 0;
+		this.contador = -1;
 		this.array = new int[tamanho];
 	}
 	
@@ -52,10 +52,9 @@ class PilhaComArray {
 	
 	public String pop(){
 		String saida = null;
-		if (contador == 0) {
+		if (isEmpty()) {
 			saida = VAZIO;
 		} else {
-			array[this.contador-1] = 0;
 			this.contador--;
 		}
 		return saida;
@@ -63,24 +62,24 @@ class PilhaComArray {
 	
 	public String push(int numero) {
 		String saida = null;
-		if (contador == array.length) {
+		if (isFull()) {
 			saida = CHEIO;
 		} else {
-			array[this.contador] = numero;
 			this.contador++;
+			array[this.contador] = numero;
 		}
 		return saida;
 	}
 	
 	public String print() {
 		String saida = null; 
-		if (this.contador == 0) {
+		if (isEmpty()) {
 			saida = VAZIO;
 		} else {
 			saida = "";
-			for (int i = 0; i < this.contador; i++) {
+			for (int i = 0; i <= this.contador; i++) {
 				saida += this.array[i];
-				if(i!=contador-1) {
+				if(i!=contador) {
 					saida += " ";
 				}
 			}
@@ -90,12 +89,20 @@ class PilhaComArray {
 	
 	public String peek() {
 		String saida = null;
-		if (contador == 0) {
+		if (isEmpty()) {
 			saida = VAZIO;
 		} else {
-			saida = Integer.toString(array[this.contador-1]);
+			saida = Integer.toString(array[this.contador]);
 		}
 		return saida;
+	}
+	
+	private boolean isEmpty() {
+		return contador == -1;
+	}
+	
+	private boolean isFull(){
+		return contador == array.length-1;
 	}
 	
 }

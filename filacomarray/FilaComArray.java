@@ -9,7 +9,7 @@ class FilaComArray {
 	private static final String VAZIO = "empty";
 	
 	public FilaComArray(int tamanho) {
-		this.contador = 0;
+		this.contador = -1;
 		this.array = new int[tamanho];
 	}
 	
@@ -52,13 +52,13 @@ class FilaComArray {
 	
 	public String print() {
 		String saida = null; 
-		if (this.contador == 0) {
+		if (isEmpty()) {
 			saida = VAZIO;
 		} else {
 			saida = "";
-			for (int i = 0; i < this.contador; i++) {
+			for (int i = 0; i <= this.contador; i++) {
 				saida += this.array[i];
-				if(i!=contador-1) {
+				if(i!=contador) {
 					saida += " ";
 				}
 			}
@@ -68,18 +68,25 @@ class FilaComArray {
 
 	public String add(int numero) {
 		String retorno = null;
-		if (this.contador == array.length) {
+		if (isFull()) {
 			retorno = CHEIO;
 		} else {
-			array[this.contador] = numero;
 			this.contador++;
+			array[this.contador] = numero;
 		}
 		return retorno;
 	}
 	
+	private boolean isEmpty() {
+		return contador == -1;
+	}
+	
+	private boolean isFull(){
+		return contador == array.length-1;
+	}
 	public String remove() {
 		String retorno = null;
-		if (this.contador == 0) {
+		if (isEmpty()) {
 			retorno = VAZIO;
 		} else {
 			swapBack();
@@ -90,7 +97,7 @@ class FilaComArray {
 	
 	public String element() {
 		String retorno = null;
-		if (this.contador == 0) {
+		if (isEmpty()) {
 			retorno = VAZIO;
 		} else {
 			retorno = Integer.toString(this.array[0]);
@@ -99,8 +106,8 @@ class FilaComArray {
 	}
 	
 	private void swapBack() {
-		for (int i = contador-1; 0 < i; i--) {
-			swap(i, i-1);
+		for (int i = 0; i < contador; i++) {
+			swap(i, i+1);
 		}
 	}
 
